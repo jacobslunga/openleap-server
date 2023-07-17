@@ -21,3 +21,5 @@ router.post("/:id/members/:userId", removeMemberFromProject);
 router.post("/:id/update", updateProject);
 
 router.delete("/:id/delete", deleteProject);
+
+export default router;

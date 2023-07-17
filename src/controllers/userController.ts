@@ -119,7 +119,7 @@ export const register = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Invalid email" });
   }
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: {
       email,
     },
@@ -127,6 +127,16 @@ export const register = async (req: Request, res: Response) => {
 
   if (user) {
     return res.status(409).json({ message: "Email is already taken" });
+  }
+
+  user = await prisma.user.findUnique({
+    where: {
+      username,
+    },
+  });
+
+  if (user) {
+    return res.status(409).json({ message: "Username is already taken" });
   }
 
   if (password.length < 6) {
@@ -261,7 +271,7 @@ export const registerWithProvider = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { email, password, username } = req.body;
 
-  if (!isValidEmail(email)) {
+  if (!isValidEmail(email) && !username) {
     return res.status(400).json({ message: "Invalid email" });
   }
 

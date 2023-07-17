@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import userRoutes from "./routes/userRoutes";
 import skillRoutes from "./routes/skillRoutes";
+import projectRoutes from "./routes/projectRoutes";
 
 async function main() {
   dotenv.config();
@@ -18,6 +19,7 @@ async function main() {
   // Routes
   app.use("/users", userRoutes);
   app.use("/skills", skillRoutes);
+  app.use("/projects", projectRoutes);
 
   const port = process.env.PORT || 5001;
   app.listen(port, () => {

@@ -19,6 +19,11 @@ export const getProjectById = async (req: Request, res: Response) => {
       tasks: true,
     },
   });
+
+  if (!project) {
+    return res.status(404).json({ message: "Project not found" });
+  }
+
   res.json(project);
 };
 
